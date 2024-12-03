@@ -1,9 +1,7 @@
 with open("input.txt", "r") as f:
-    l1, l2 = [], []
-    for line in f.readlines():
-        n1, n2 = [int(n) for n in line.split("   ")]
-        l1.append(n1)
-        l2.append(n2)
+    nums = [l.split("   ") for l in f.readlines()]
 
-res = sum(abs(n1 - n2) for n1, n2 in zip(sorted(l1), sorted(l2)))
+l1 = sorted([int(n) for n, _ in nums])
+l2 = sorted([int(n) for _, n in nums])
+res = sum(abs(n1 - n2) for n1, n2 in zip(l1, l2))
 print(res)
