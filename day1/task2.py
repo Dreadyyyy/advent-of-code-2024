@@ -1,20 +1,14 @@
-with open("input.txt") as f:
-    l1, l2 = [], []
-    for line in f.readlines():
-        n1, n2 = [int(n) for n in line.split("   ")]
-        l1.append(n1)
-        l2.append(n2)
+with open("input.txt", "r") as f:
+    nums = [l.split("   ") for l in f.readlines()]
+
+l1 = [int(n) for n, _ in nums]
+l2 = [int(n) for _, n in nums]
 
 m1, m2 = {}, {}
 for n in l1:
-    m1[n] = m1.setdefault(n, 0)
-    m1[n] += 1
+    m1[n] = m1.get(n, 0) + 1
 for n in l2:
-    m2[n] = m2.setdefault(n, 0)
-    m2[n] += 1
+    m2[n] = m2.get(n, 0) + 1
 
-res = 0
-for k in m1.keys():
-    res += k * m1[k] * m2.setdefault(k, 0)
-
+res = sum(k * m1[k] * m2.get(k, 0) for k in m1.keys())
 print(res)
