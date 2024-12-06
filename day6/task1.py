@@ -1,7 +1,6 @@
 with open("input.txt") as f:
     mp = [list(l.strip("\n")) for l in f.readlines()]
 
-
 x, y = 0, 0
 for r, l in enumerate(mp):
     if "^" in l and (c := l.index("^")) != -1:
