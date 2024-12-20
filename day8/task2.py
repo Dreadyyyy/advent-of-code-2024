@@ -16,14 +16,9 @@ def check(x: int, y: int, points: list[tuple[int, int]]) -> bool:
     return False
 
 
-def is_antinode(mp: list[str], x: int, y: int) -> bool:
-    pos = {}
-    for i, s in enumerate(mp):
-        for j, c in enumerate(s):
-            if c == ".":
-                continue
-
-            pos.setdefault(c, []).append((i, j))
+def is_antinode(
+    mp: list[str], x: int, y: int, pos: dict[str, list[tuple[int, int]]]
+) -> bool:
 
     return (
         any(check(x, y, v) for v in pos.values())
@@ -35,5 +30,13 @@ def is_antinode(mp: list[str], x: int, y: int) -> bool:
 with open("input.txt") as f:
     mp = [s.strip("\n") for s in f.readlines()]
 
-res = sum(is_antinode(mp, x, y) for x in range(len(mp)) for y in range(len(mp[0])))
+pos = {}
+for i, s in enumerate(mp):
+    for j, c in enumerate(s):
+        if c == ".":
+            continue
+
+        pos.setdefault(c, []).append((i, j))
+
+res = sum(is_antinode(mp, x, y, pos) for x in range(len(mp)) for y in range(len(mp[0])))
 print(res)
